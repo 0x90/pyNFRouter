@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = 'Rafael S. Guimarães e João Paulo de Brito Gonçalves'
-
+import os
 from netfilterqueue import NetfilterQueue
 from scapy.all import conf
 conf.ipv6_enable=False
