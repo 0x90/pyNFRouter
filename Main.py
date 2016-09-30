@@ -64,14 +64,14 @@ redeA.dst_mac = "08:00:27:BF:8F:22"
 # Adicionando rota na tabela de roteamento
 rotas.append(redeA)
 
-# redeB = Rota()
-# redeB.network = ipaddr.IPv4Network("172.31.2.0/24")
-# redeB.interface = "eth2"
-# redeB.src_mac = "08:00:27:55:dc:c0"
-# redeB.dst_mac = "08:00:27:a4:d7:e8"
-# # Adicionando rota na tabela de roteamento
-# rotas.append(redeB)
-#
+redeB = Rota()
+redeB.network = ipaddr.IPv4Network("192.168.81.0/24")
+redeB.interface = "eth0"
+redeB.src_mac = "08:00:27:55:dc:c0"
+redeB.dst_mac = "08:00:27:a4:d7:e8"
+# Adicionando rota na tabela de roteamento
+rotas.append(redeB)
+
 # redeC = Rota()
 # redeC.network = ipaddr.IPv4Network("172.31.3.0/24")
 # redeC.interface = "r01-eth2"
