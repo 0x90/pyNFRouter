@@ -24,6 +24,8 @@ class Rota(object):
 def print_and_accept(pkt):
     # Abre o pacote
     data = pkt.get_payload()
+    pkt = IP(packet.get_payload())
+    pkt.show()
     inj = Inject()
 
     # Transforma em um objeto para ser utilizado no scapy
