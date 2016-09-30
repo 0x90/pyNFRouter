@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 __author__ = 'Rafael S. Guimarães e João Paulo de Brito Gonçalves'
 
@@ -85,9 +86,9 @@ try:
     # Espera requisições do NetfilterQueue
     nfqueue.run()
     # Adicionando Regra IPTABLES
-    #os.system("iptables -t nat -F")
-    #os.system("iptables -t nat -A PREROUTING -j NFQUEUE --queue-num 1")
-    #
+    os.system("iptables -t nat -F")
+    os.system("iptables -t nat -A PREROUTING -j NFQUEUE --queue-num 0")
+
 except KeyboardInterrupt, ex:
     print "Finalizado..."
-    #os.system("iptables -t nat -D PREROUTING -j NFQUEUE --queue-num 1")
+    os.system("iptables -t nat -D PREROUTING -j NFQUEUE --queue-num 0")
