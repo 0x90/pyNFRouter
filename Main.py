@@ -17,28 +17,28 @@ class Rota(object):
         self.network = None
         self.gateway = ipaddr.IPv4Network("0.0.0.0/0")
         self.interface = ""
-    self.src_mac = ""
-    self.dst_mac = ""
+        self.src_mac = ""
+        self.dst_mac = ""
 
 def print_and_accept(pkt):
     # Abre o pacote
     data = pkt.get_payload()
     inj = Inject()
-    
+
     # Transforma em um objeto para ser utilizado no scapy
     packet = IP(data)
     if_out = None
-    
+
     print "SRC: %s -> DST: %s" % (packet.src, packet.dst)
 
     # Verifica qual a interface de destino.
     dest_ip = ipaddr.IPv4Address(packet.dst)
     prefixlen = 0
-    if_out=None 
+    if_out=None
     rota_dst=None
     for rota in rotas:
         if dest_ip in rota.network:
-        print rota.network.prefixlen
+            print rota.network.prefixlen
         # Verifica interface de destino
         if rota.network.prefixlen > prefixlen:
                 prefixlen = rota.network.prefixlen
@@ -57,27 +57,27 @@ def print_and_accept(pkt):
 rotas = []
 # Construindo tabela de roteamento
 redeA = Rota()
-redeA.network = ipaddr.IPv4Network("172.31.1.0/24")
+redeA.network = ipaddr.IPv4Network("172.16.166.0/24")
 redeA.interface = "eth1"
 redeA.src_mac = "08:00:27:93:89:f2"
 redeA.dst_mac = "08:00:27:BF:8F:22"
 # Adicionando rota na tabela de roteamento
 rotas.append(redeA)
 
-redeB = Rota()
-redeB.network = ipaddr.IPv4Network("172.31.2.0/24")
-redeB.interface = "eth2"
-redeB.src_mac = "08:00:27:55:dc:c0"
-redeB.dst_mac = "08:00:27:a4:d7:e8"
-# Adicionando rota na tabela de roteamento
-rotas.append(redeB)
-
-redeC = Rota()
-redeC.network = ipaddr.IPv4Network("172.31.3.0/24")
-redeC.interface = "r01-eth2"
-# Adicionando rota na tabela de roteamento
-rotas.append(redeC)
-######################
+# redeB = Rota()
+# redeB.network = ipaddr.IPv4Network("172.31.2.0/24")
+# redeB.interface = "eth2"
+# redeB.src_mac = "08:00:27:55:dc:c0"
+# redeB.dst_mac = "08:00:27:a4:d7:e8"
+# # Adicionando rota na tabela de roteamento
+# rotas.append(redeB)
+#
+# redeC = Rota()
+# redeC.network = ipaddr.IPv4Network("172.31.3.0/24")
+# redeC.interface = "r01-eth2"
+# # Adicionando rota na tabela de roteamento
+# rotas.append(redeC)
+# ######################
 
 nfqueue = NetfilterQueue()
 nfqueue.bind(1, print_and_accept)
@@ -91,4 +91,3 @@ try:
 except KeyboardInterrupt, ex:
     print "Finalizado..."
     #os.system("iptables -t nat -D PREROUTING -j NFQUEUE --queue-num 1")
-
