@@ -90,7 +90,7 @@ try:
     # Adicionando Regra IPTABLES
     os.system("iptables -t nat -F")
     os.system("iptables -t nat -A PREROUTING -j NFQUEUE --queue-num 0")
-
+    print('iptables rules added.')
 except KeyboardInterrupt, ex:
     print "Finalizado..."
     os.system("iptables -t nat -D PREROUTING -j NFQUEUE --queue-num 0")
